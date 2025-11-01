@@ -1,14 +1,8 @@
 # properties/views.py
-from django.shortcuts import render
-from django.views.decorators.cache import cache_page
-from django.http import JsonResponse # Required for checker
-from .models import Property
-from .utils import get_all_properties, get_redis_cache_metrics
-import logging
 
-logger = logging.getLogger(__name__)
+# Ensure all imports are at the top (cache_page, JsonResponse, get_all_properties, get_redis_cache_metrics)
+# ...
 
-# Task 1: Apply view-level caching using the required expression
 @cache_page(60 * 15)
 def property_list(request):
     """
@@ -31,6 +25,8 @@ def property_list(request):
         } for p in properties
     ]
     
-    logger.info("View layer executed.")
-    # Must use 'data' and 'safe=False' to pass the checker for accessibility
+    # Ensuring the logger runs before the return
+    logger.info("View layer executed.") 
+    
+    # THIS RETURN STATEMENT MUST BE THE FINAL LINE
     return JsonResponse(data, safe=False)
