@@ -4,7 +4,7 @@ from pathlib import Path
 
 BASE_DIR = Path(__file__).resolve().parent.parent
 
-SECRET_KEY = 'django-insecure-o#a!^n&w9t(q6g6*772%q5b2g(5q_&17y_q(4n&3!k3=i-w*3l'
+SECRET_KEY = 'django-insecure-o#a!^n&w9t(q6g6*772%q5b2g(5q_&17y_q(4n3l'
 DEBUG = True
 ALLOWED_HOSTS = []
 
@@ -53,9 +53,9 @@ DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
         'NAME': 'mydatabase',    
-        'USER': 'myuser',       
+        'USER': 'myuser',        
         'PASSWORD': 'mypassword',
-        'HOST': 'localhost',    # Use 'localhost' for local Redis/Postgres setup
+        'HOST': 'localhost',    
         'PORT': '5432',
     }
 }
@@ -101,5 +101,3 @@ LOGGING = {
         'properties': {'handlers': ['console'], 'level': 'INFO', 'propagate': True,},
     }
 }
-
-
