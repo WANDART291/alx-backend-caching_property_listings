@@ -19,6 +19,9 @@ services:
     container_name: alx_redis
     ports:
       - "6379:6379"
+    volumes:
+      - redis_data:/data # <-- ADD THIS LINE
 
 volumes:
   postgres_data:
+  redis_data:           # <-- ADD THIS LINE
