@@ -1,8 +1,13 @@
 # properties/views.py
+from django.views.decorators.cache import cache_page
+from django.http import JsonResponse
+from .utils import get_all_properties, get_redis_cache_metrics
+from django.shortcuts import render # You may keep or remove this
+import logging
 
-# Ensure all imports are at the top (cache_page, JsonResponse, get_all_properties, get_redis_cache_metrics)
-# ...
+logger = logging.getLogger(__name__)
 
+# Task 1: Apply view-level caching using the required expression
 @cache_page(60 * 15)
 def property_list(request):
     """
@@ -25,8 +30,8 @@ def property_list(request):
         } for p in properties
     ]
     
-    # Ensuring the logger runs before the return
     logger.info("View layer executed.") 
     
-    # THIS RETURN STATEMENT MUST BE THE FINAL LINE
+    # Final return statement
     return JsonResponse(data, safe=False)
+    
