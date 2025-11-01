@@ -1,36 +1,24 @@
-# properties/views.py (Final update)
+# properties/views.py
 from django.shortcuts import render
 from django.views.decorators.cache import cache_page
-from .utils import get_all_properties, get_redis_cache_metrics # <-- IMPORT METRICS
+from .utils import get_all_properties # or .models import Property if you haven't done Task 2 yet
 from django.http import JsonResponse
 import logging
 
 logger = logging.getLogger(__name__)
 
-# Task 1: View-level caching (Outer layer: 15 minutes)
-@cache_page(900)
+@cache_page(60 * 15) 
 def property_list(request):
     """
-    Returns a list of all properties using multi-level caching and logs metrics.
+    Returns a list of all properties.
     """
-    # Task 2: Use the low-level cached function
+    # Use the low-level cached function (assuming you implemented Task 2)
     properties = get_all_properties()
 
-    # Task 4: Log cache metrics (must be called after get_all_properties to reflect latest hit/miss)
-    metrics = get_redis_cache_metrics()
-
+    # ... (rest of the view logic)
     data = [
-        # ... (data processing remains the same)
-        {
-            'title': p.title,
-            'description': p.description,
-            'price': str(p.price),
-            'location': p.location,
-            'created_at': p.created_at.isoformat(),
-        } for p in properties
+        # ... (property data processing)
     ]
     
     logger.info("View layer (Task 1) executed.")
-    # For testing, you can return metrics in the response:
-    # return JsonResponse({'properties': data, 'metrics': metrics}, safe=False)
     return JsonResponse(data, safe=False)
