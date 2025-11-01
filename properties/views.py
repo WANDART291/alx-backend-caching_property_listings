@@ -1,24 +1,23 @@
 # properties/views.py
-from django.shortcuts import render
-from django.views.decorators.cache import cache_page
-from .utils import get_all_properties # or .models import Property if you haven't done Task 2 yet
-from django.http import JsonResponse
-import logging
 
-logger = logging.getLogger(__name__)
+# ... (all previous code: imports, logger, @cache_page(60 * 15), get_all_properties, etc.)
 
-@cache_page(60 * 15) 
+@cache_page(60 * 15)
 def property_list(request):
     """
     Returns a list of all properties.
     """
-    # Use the low-level cached function (assuming you implemented Task 2)
-    properties = get_all_properties()
+    # ... (code to fetch properties into a list of dictionaries named 'data')
 
-    # ... (rest of the view logic)
     data = [
-        # ... (property data processing)
+        {
+            'title': p.title,
+            'description': p.description,
+            'price': str(p.price),
+            'location': p.location,
+            'created_at': p.created_at.isoformat(),
+        } for p in properties
     ]
     
-    logger.info("View layer (Task 1) executed.")
+    # FIX: Ensure this line is present and uses 'data'
     return JsonResponse(data, safe=False)
